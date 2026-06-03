@@ -39,7 +39,10 @@ export const AuthProvider = ({ children }) => {
 
   const logout = async () => {
     try {
-      await authService.logout();
+      const token = localStorage.getItem('access_token');
+      if (token) {
+        await authService.logout();
+      }
     } catch (e) {
       console.error('Logout error:', e);
     } finally {
@@ -47,6 +50,7 @@ export const AuthProvider = ({ children }) => {
       localStorage.removeItem('refresh_token');
       localStorage.removeItem('user');
       setUser(null);
+      window.dispatchEvent(new Event('auth:logout'));
       window.location.href = '/icampus/login';
     }
   };

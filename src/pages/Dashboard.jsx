@@ -302,7 +302,7 @@ const Dashboard = () => {
               <MetricCard title="Total Teachers" value={dashboardData?.total_teachers || 0} icon={<ClipboardList size={24} />} color="#10b981" onClick={goToSection('teachers')} />
             </Box>
             <Box sx={{ gridColumn: 'span 1' }}>
-              <MetricCard title="Pending Approvals" value={dashboardData?.pending_approvals || 0} icon={<AlertCircle size={24} />} color="#f59e0b" onClick={goToSection('students')} />
+              <MetricCard title="Pending Approvals" value={dashboardData?.pending_approvals || 0} icon={<AlertCircle size={24} />} color="#f59e0b" onClick={goToSection('students/approvals')} />
             </Box>
             <Box sx={{ gridColumn: 'span 1' }}>
               <MetricCard title="Total Exams" value={dashboardData?.exams_count || 0} icon={<FileText size={24} />} color="#8b5cf6" onClick={goToSection('examinations')} />

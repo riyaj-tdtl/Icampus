@@ -5,8 +5,9 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { chatbotService } from '../services/chatbot.service';
 
 const AIChatModal = ({ open, onClose }) => {
+  const user = JSON.parse(localStorage.getItem('user') || '{}');
+
   const getInitialMessage = () => {
-    const user = JSON.parse(localStorage.getItem('user') || '{}');
     return { role: 'ai', content: `Hello ${user.first_name || 'there'}! I'm your iCampus AI Tutor. How can I help you today?` };
   };
 
