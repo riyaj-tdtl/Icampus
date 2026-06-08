@@ -156,7 +156,7 @@ const AttendancePage = () => {
       }}>
         <Box>
           <Typography variant="h4" sx={{ fontWeight: 800, fontSize: { xs: '1.75rem', md: '2.125rem' } }}>
-            {isStudent ? 'My Attendance' : 'Attendance Tracking'}
+            {isStudent ? 'My Attendance' : isAdmin ? 'Teachers Attendance Tracking' : 'Attendance Tracking'}
           </Typography>
           <Typography variant="body1" color="text.secondary">
             {isStudent ? 'View your daily attendance and overall participation.' : 'Real-time attendance logs and participation metrics.'}
@@ -176,7 +176,7 @@ const AttendancePage = () => {
       </Box>
 
       {/* Role-based attendance view */}
-      {!isStudent && (
+      {!isStudent && availableTabs.length > 1 && (
         <Paper sx={{ borderRadius: '16px', mb: 3, overflow: 'hidden', boxShadow: '0 2px 10px rgba(0,0,0,0.04)' }}>
           <Tabs 
             value={tab} 

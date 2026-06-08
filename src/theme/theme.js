@@ -52,6 +52,16 @@ export const theme = createTheme({
     borderRadius: 16,
   },
   components: {
+    MuiTableCell: {
+      styleOverrides: {
+        head: {
+          backgroundColor: '#8456F1 !important',
+          color: '#fff !important',
+          fontWeight: 700,
+          borderBottom: '2px solid rgba(132, 86, 241, 0.15)',
+        },
+      },
+    },
     MuiButton: {
       styleOverrides: {
         root: {

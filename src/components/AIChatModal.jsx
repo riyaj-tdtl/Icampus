@@ -1,11 +1,12 @@
 import { useState, useEffect, useRef } from 'react';
 import { Drawer, Box, Typography, IconButton, InputBase, Chip, Avatar } from '@mui/material';
-import { Bot, Send, X, Sparkles } from 'lucide-react';
+import { Bot, Send, X, Sparkles, Maximize2, Minimize2 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { chatbotService } from '../services/chatbot.service';
 
 const AIChatModal = ({ open, onClose }) => {
   const user = JSON.parse(localStorage.getItem('user') || '{}');
+  const [isWide, setIsWide] = useState(false);
 
   const getInitialMessage = () => {
     return { role: 'ai', content: `Hello ${user.first_name || 'there'}! I'm your iCampus AI Tutor. How can I help you today?` };
@@ -34,10 +35,57 @@ const AIChatModal = ({ open, onClose }) => {
 
     try {
       const res = await chatbotService.ask(userMsg);
-      const botMessage = res.message || res.reply || res.response || 'I am sorry, I am having trouble connecting right now.';
-      const supportInfo = res.contact_support ? `\n\nNeed help? Contact ${res.contact_support.department} at ${res.contact_support.phone} or ${res.contact_support.email}.` : '';
-      const aiReply = `${botMessage}${supportInfo}`;
-      setMessages(prev => [...prev, { role: 'ai', content: aiReply }]);
+      const botMessage = res.answer || res.message || res.reply || res.response || 'I am sorry, I am having trouble connecting right now.';
+
+      const formatFieldName = (field) => field
+        .replace(/_/g, ' ')
+        .replace(/\b\w/g, (chr) => chr.toUpperCase());
+
+      const importantFields = {
+        'Exam Information': ['exam_name', 'subject', 'exam_date', 'total_marks'],
+        'Student Information': ['name', 'email', 'phone', 'address', 'guardian_name', 'hostel_status'],
+        'Teacher Information': ['name', 'email', 'phone', 'subject', 'occupation'],
+      };
+
+      const getFields = (tableName, record = {}) => {
+        const preferred = importantFields[tableName] || ['name', 'email', 'phone', 'subject'];
+        const fields = preferred.filter((key) => key in record && record[key] !== undefined && record[key] !== null);
+        if (fields.length) return fields;
+        return Object.keys(record)
+          .filter((key) => !['created_at', 'created_by_id', 'academic_class_id', 'description'].includes(key))
+          .slice(0, 5);
+      };
+
+      const formatResultsAsCards = (results) => {
+        if (!Array.isArray(results) || results.length === 0) return [];
+
+        const grouped = results.reduce((acc, item) => {
+          const tableName = item.table || 'Result';
+          acc[tableName] = acc[tableName] || [];
+          acc[tableName].push(item.data || {});
+          return acc;
+        }, {});
+
+        return Object.entries(grouped).map(([tableName, rows]) => ({
+          tableName,
+          cards: rows.map((row) => {
+            const fields = getFields(tableName, row).map((key) => ({
+              label: formatFieldName(key),
+              value: row[key] ?? '',
+            }));
+            return { id: row.id ?? '', fields };
+          }),
+        }));
+      };
+
+      const cards = formatResultsAsCards(res.results);
+      const supportInfo = res.contact_support ? `Need help?\nContact ${res.contact_support.department} at ${res.contact_support.phone} or ${res.contact_support.email}.` : '';
+      const shouldHideMessage = Array.isArray(res.results) && res.results.length > 0 && 
+        (botMessage === 'Information found successfully.' || botMessage === 'Results found.');
+      const aiReply = shouldHideMessage
+        ? supportInfo || ''
+        : [botMessage, supportInfo].filter(Boolean).join('\n');
+      setMessages(prev => [...prev, { role: 'ai', content: aiReply, cards }]);
     } catch (error) {
       console.error('Chat error:', error);
       setMessages(prev => [...prev, { role: 'ai', content: 'An error occurred. Please try again later.' }]);
@@ -70,7 +118,8 @@ const AIChatModal = ({ open, onClose }) => {
       onClose={onClose}
       sx={{ 
         '& .MuiDrawer-paper': { 
-          width: { xs: '100%', sm: 420 }, 
+          width: { xs: '100%', sm: isWide ? 700 : 420 }, 
+          transition: 'width 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
           borderTopLeftRadius: 32, 
           borderBottomLeftRadius: 32, 
           overflow: 'hidden',
@@ -117,9 +166,22 @@ const AIChatModal = ({ open, onClose }) => {
               </Typography>
             </Box>
           </Box>
-          <IconButton onClick={onClose} sx={{ color: '#cbd5e1', bgcolor: 'rgba(255,255,255,0.06)', '&:hover': { color: 'white', bgcolor: 'rgba(255,255,255,0.12)' } }}>
-            <X size={20} />
-          </IconButton>
+          <Box sx={{ display: 'flex', gap: 1 }}>
+            <IconButton 
+              onClick={() => setIsWide(!isWide)} 
+              sx={{ 
+                color: '#cbd5e1', 
+                bgcolor: 'rgba(255,255,255,0.06)', 
+                '&:hover': { color: 'white', bgcolor: 'rgba(255,255,255,0.12)' } 
+              }}
+              title={isWide ? "Decrease width" : "Increase width"}
+            >
+              {isWide ? <Minimize2 size={20} /> : <Maximize2 size={20} />}
+            </IconButton>
+            <IconButton onClick={onClose} sx={{ color: '#cbd5e1', bgcolor: 'rgba(255,255,255,0.06)', '&:hover': { color: 'white', bgcolor: 'rgba(255,255,255,0.12)' } }}>
+              <X size={20} />
+            </IconButton>
+          </Box>
         </Box>
 
         {/* Chat Area */}
@@ -130,7 +192,7 @@ const AIChatModal = ({ open, onClose }) => {
                 key={index} 
                 sx={{ 
                   alignSelf: msg.role === 'ai' ? 'flex-start' : 'flex-end', 
-                  maxWidth: '85%', 
+                  maxWidth: msg.role === 'ai' ? '92%' : '85%', 
                   display: 'flex', 
                   gap: 1.5, 
                   flexDirection: msg.role === 'ai' ? 'row' : 'row-reverse' 
@@ -143,7 +205,7 @@ const AIChatModal = ({ open, onClose }) => {
                   <Typography variant="caption" sx={{ color: '#94a3b8', fontWeight: 600, ml: msg.role === 'ai' ? 1 : 0, mr: msg.role === 'user' ? 1 : 0, mb: 0.5, display: 'block', textAlign: msg.role === 'ai' ? 'left' : 'right' }}>
                     {msg.role === 'ai' ? 'AI Tutor' : 'You'}
                   </Typography>
-                  <Typography 
+                  <Box
                     component={motion.div}
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -160,11 +222,51 @@ const AIChatModal = ({ open, onClose }) => {
                       border: msg.role === 'ai' ? '1px solid rgba(255,255,255,0.12)' : 'none', 
                       backdropFilter: msg.role === 'ai' ? 'blur(14px)' : 'none',
                       boxShadow: msg.role === 'user' ? '0 18px 40px rgba(132, 86, 241, 0.16)' : '0 10px 30px rgba(0,0,0,0.08)',
-                      textShadow: msg.role === 'user' ? '0 1px 2px rgba(0,0,0,0.2)' : 'none'
+                      textShadow: msg.role === 'user' ? '0 1px 2px rgba(0,0,0,0.2)' : 'none',
+                      whiteSpace: 'pre-wrap',
+                      wordBreak: 'break-word'
                     }}
                   >
-                    {msg.content}
-                  </Typography>
+                    {msg.content && (
+                      <Typography sx={{ mb: msg.cards?.length ? 2 : 0, color: msg.role === 'ai' ? '#e2e7ff' : 'white' }}>
+                        {msg.content}
+                      </Typography>
+                    )}
+                    {msg.cards?.map((table, tableIndex) => (
+                      <Box key={tableIndex} sx={{ mt: tableIndex > 0 ? 2 : 0 }}>
+                        <Typography variant="subtitle2" sx={{ mb: 1, color: '#dbeafe', fontWeight: 700, letterSpacing: 0.5 }}>
+                          {table.tableName}
+                        </Typography>
+                        <Box sx={{ display: 'grid', gridTemplateColumns: isWide ? { sm: 'repeat(2, minmax(0, 1fr))', xs: '1fr' } : '1fr', gap: 1.25 }}>
+                          {table.cards.map((card, cardIndex) => (
+                            <Box
+                              key={`${card.id || cardIndex}-${cardIndex}`}
+                              sx={{
+                                p: 2,
+                                borderRadius: '18px',
+                                border: '1px solid rgba(255,255,255,0.16)',
+                                bgcolor: 'rgba(255,255,255,0.04)',
+                                boxShadow: 'inset 0 0 0 1px rgba(255,255,255,0.02)'
+                              }}
+                            >
+                              <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(2, minmax(0, 1fr))', gap: 1, alignItems: 'start' }}>
+                                {card.fields.map((field, fieldIndex) => (
+                                  <Box key={fieldIndex} sx={{ display: 'flex', flexDirection: 'column', gap: 0.5 }}>
+                                    <Typography variant="caption" sx={{ color: '#a5b4fc', fontWeight: 600 }}>
+                                      {field.label}
+                                    </Typography>
+                                    <Typography variant="body2" sx={{ color: '#eef2ff', fontWeight: 700, wordBreak: 'break-word' }}>
+                                      {field.value}
+                                    </Typography>
+                                  </Box>
+                                ))}
+                              </Box>
+                            </Box>
+                          ))}
+                        </Box>
+                      </Box>
+                    ))}
+                  </Box>
                 </Box>
               </Box>
             ))}
@@ -193,7 +295,7 @@ const AIChatModal = ({ open, onClose }) => {
         {/* Input Area */}
         <Box sx={{ p: 3, pt: 1, borderTop: '1px solid rgba(255,255,255,0.05)', bgcolor: 'rgba(15, 23, 42, 0.8)', backdropFilter: 'blur(20px)' }}>
           <Box sx={{ display: 'flex', gap: 1, mb: 2, flexWrap: 'wrap' }}>
-            {['Summarize Unit 4', 'Exam Tips', 'Generate Quiz'].map((label, idx) => (
+            {['Exam', 'Students', 'Fees'].map((label, idx) => (
               <Chip 
                 key={label}
                 component={motion.div} whileHover={{ scale: 1.05 }}

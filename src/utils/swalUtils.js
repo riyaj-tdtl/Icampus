@@ -58,35 +58,36 @@ export const confirmDelete = (title = 'Are you sure?', text = 'You will not be a
   });
 };
 
+export const confirmLogout = (title = 'Logout?', text = 'Are you sure you want to end your current session?') => {
+  return Swal.fire({
+    ...baseConfig,
+    title,
+    text,
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#ef4444',
+    confirmButtonText: 'Yes, log out',
+  });
+};
+
 export const showComplexForm = (title, fields = []) => {
   const getFieldValue = (field) => {
     if (field.value !== undefined && field.value !== null) return field.value;
-    // Smart fallback: if placeholder is set and doesn't look like generic instructional text, treat it as a value
-    if (field.placeholder && typeof field.placeholder === 'string') {
-      const p = field.placeholder.trim().toLowerCase();
-      if (
-        !p.startsWith('e.g.') && 
-        !p.startsWith('example') && 
-        !p.startsWith('enter ') && 
-        !p.startsWith('choose ') && 
-        !p.startsWith('select ') && 
-        !p.startsWith('0.0') &&
-        p !== ''
-      ) {
-        return field.placeholder;
-      }
-    }
     return '';
   };
 
   const html = `
-    <div style="display: flex; flex-direction: column; gap: 20px; text-align: left; padding: 10px 5px;">
+    <form autocomplete="off" style="display: flex; flex-direction: column; gap: 20px; text-align: left; padding: 10px 5px;">
+      <input type="text" name="hidden-username" autocomplete="off" style="display:none" />
+      <input type="password" name="hidden-password" autocomplete="new-password" style="display:none" />
       ${fields.map(field => `
         <div style="width: 100%;">
           <label style="display: block; font-size: 13px; font-weight: 700; color: #475569; margin-bottom: 8px; font-family: 'Outfit', sans-serif; text-transform: uppercase; letter-spacing: 0.5px;">${field.label}</label>
           ${field.type === 'textarea' ? `
             <textarea 
               id="swal-input-${field.id}" 
+              name="swal-input-${field.id}"
+              autocomplete="off"
               placeholder="${field.placeholder || ''}" 
               style="width: 100%; height: 120px; border-radius: 12px; border: 1px solid #e2e8f0; padding: 12px 16px; font-size: 15px; font-family: 'Inter', sans-serif; transition: all 0.2s; background: #f8fafc; resize: none;"
               onfocus="this.style.borderColor='#8456f1'; this.style.backgroundColor='#ffffff'; this.style.boxShadow='0 0 0 4px rgba(132, 86, 241, 0.1)'"
@@ -95,6 +96,8 @@ export const showComplexForm = (title, fields = []) => {
           ` : field.type === 'select' ? `
             <select
               id="swal-input-${field.id}"
+              name="swal-input-${field.id}"
+              autocomplete="off"
               style="width: 100%; height: 50px; border-radius: 12px; border: 1px solid #e2e8f0; padding: 0 16px; font-size: 15px; font-family: 'Inter', sans-serif; transition: all 0.2s; background: #f8fafc;"
               onfocus="this.style.borderColor='#8456f1'; this.style.backgroundColor='#ffffff'; this.style.boxShadow='0 0 0 4px rgba(132, 86, 241, 0.1)'"
               onblur="this.style.borderColor='#e2e8f0'; this.style.backgroundColor='#f8fafc'; this.style.boxShadow='none'"
@@ -108,6 +111,8 @@ export const showComplexForm = (title, fields = []) => {
           ` : `
             <input 
               id="swal-input-${field.id}" 
+              name="swal-input-${field.id}"
+              autocomplete="${field.type === 'password' ? 'new-password' : 'off'}"
               type="${field.type || 'text'}" 
               value="${getFieldValue(field)}"
               placeholder="${field.placeholder || ''}" 
@@ -118,7 +123,7 @@ export const showComplexForm = (title, fields = []) => {
           `}
         </div>
       `).join('')}
-    </div>
+    </form>
   `;
 
   return Swal.fire({

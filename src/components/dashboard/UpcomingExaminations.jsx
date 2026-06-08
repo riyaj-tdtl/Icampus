@@ -68,9 +68,9 @@ const UpcomingExaminations = () => {
               Upcoming Examinations
             </Typography>
           </Box>
-          <Button size="small" sx={{ fontWeight: 600, color: 'primary.main', '&:hover': { bgcolor: 'rgba(132, 86, 241, 0.1)' } }} onClick={() => showComingSoon('Full Examination Schedule')}>
+          {/* <Button size="small" sx={{ fontWeight: 600, color: 'primary.main', '&:hover': { bgcolor: 'rgba(132, 86, 241, 0.1)' } }} onClick={() => showComingSoon('Full Examination Schedule')}>
             View Schedule
-          </Button>
+          </Button> */}
         </Box>
 
         {loading ? (
