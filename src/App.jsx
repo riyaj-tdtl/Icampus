@@ -23,6 +23,14 @@ import Profile from './pages/Profile';
 import ActivityLog from './pages/ActivityLog';
 import Programs from './pages/Programs';
 import StudentApprovals from './pages/StudentApprovals';
+import ManageParents from './pages/ManageParents';
+import ParentDashboard from './pages/parent/ParentDashboard';
+import ParentAttendance from './pages/parent/ParentAttendance';
+import ParentHomework from './pages/parent/ParentHomework';
+import ParentTimetable from './pages/parent/ParentTimetable';
+import ParentExams from './pages/parent/ParentExams';
+import ParentPrograms from './pages/parent/ParentPrograms';
+import Complaints from './pages/Complaints';
 import ProtectedRoute from './components/ProtectedRoute';
 import RoleGuard from './components/RoleGuard';
 import { useAuth } from './context/AuthContext';
@@ -41,6 +49,7 @@ function App() {
         userRole ? (
           userRole === 'STUDENT' ? <Navigate to="/student-portal/dashboard" replace /> :
           userRole === 'TEACHER' ? <Navigate to="/teacher-portal/dashboard" replace /> :
+          userRole === 'PARENT' ? <Navigate to="/parent-portal/dashboard" replace /> :
           <Navigate to="/admin-portal/dashboard" replace />
         ) : <Navigate to="/login" replace />
       } />
@@ -69,6 +78,8 @@ function App() {
         <Route path="profile" element={<Profile />} />
         <Route path="activity-log" element={<ActivityLog />} />
         <Route path="programs" element={<Programs />} />
+        <Route path="parents" element={<ManageParents />} />
+        <Route path="complaints" element={<Complaints />} />
       </Route>
 
       {/* Teacher Routes */}
@@ -88,6 +99,21 @@ function App() {
         <Route path="profile" element={<Profile />} />
         <Route path="activity-log" element={<ActivityLog />} />
         <Route path="programs" element={<Programs />} />
+        <Route path="parents" element={<ManageParents />} />
+        <Route path="complaints" element={<Complaints />} />
+      </Route>
+
+      {/* Parent Routes */}
+      <Route path="/parent-portal" element={<ProtectedRoute><RoleGuard allowedRoles={['PARENT']}><MainLayout /></RoleGuard></ProtectedRoute>}>
+        <Route index element={<Navigate to="dashboard" replace />} />
+        <Route path="dashboard" element={<ParentDashboard />} />
+        <Route path="attendance" element={<ParentAttendance />} />
+        <Route path="homework" element={<ParentHomework />} />
+        <Route path="timetable" element={<ParentTimetable />} />
+        <Route path="examinations" element={<ParentExams />} />
+        <Route path="programs" element={<ParentPrograms />} />
+        <Route path="complaints" element={<Complaints />} />
+        <Route path="profile" element={<Profile />} />
       </Route>
 
       {/* Student Routes */}
@@ -105,6 +131,7 @@ function App() {
         <Route path="profile" element={<Profile />} />
         <Route path="activity-log" element={<ActivityLog />} />
         <Route path="programs" element={<Programs />} />
+        <Route path="complaints" element={<Complaints />} />
       </Route>
       
       <Route path="*" element={<Navigate to="/" replace />} />

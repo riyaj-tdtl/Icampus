@@ -15,24 +15,29 @@ import {
   Menu,
   X,
   Building2,
-  Pencil
+  Pencil,
+  UserPlus,
+  AlertTriangle,
+  Calendar
 } from 'lucide-react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 const allNavItems = [
-  { text: 'Dashboard', icon: <LayoutDashboard size={20} />, path: '/dashboard', roles: ['SUPER_ADMIN', 'ADMIN', 'TEACHER', 'STUDENT'] },
+  { text: 'Dashboard', icon: <LayoutDashboard size={20} />, path: '/dashboard', roles: ['SUPER_ADMIN', 'ADMIN', 'TEACHER', 'STUDENT', 'PARENT'] },
   { text: 'Students', icon: <Users size={20} />, path: '/students', roles: ['SUPER_ADMIN', 'ADMIN', 'TEACHER'] },
   { text: 'Registration Approvals', icon: <ClipboardList size={20} />, path: '/students/approvals', roles: ['SUPER_ADMIN', 'ADMIN', 'TEACHER'] },
   { text: 'Teachers', icon: <GraduationCap size={20} />, path: '/teachers', roles: ['SUPER_ADMIN', 'ADMIN'] },
-  { text: 'Homework', icon: <Pencil size={20} />, path: '/homework', roles: ['SUPER_ADMIN', 'ADMIN', 'TEACHER', 'STUDENT'] },
-  { text: 'Attendance', icon: <CalendarCheck size={20} />, path: '/attendance', roles: ['SUPER_ADMIN', 'ADMIN', 'TEACHER', 'STUDENT'] },
+  { text: 'Manage Parents', icon: <UserPlus size={20} />, path: '/parents', roles: ['SUPER_ADMIN', 'ADMIN', 'TEACHER'] },
+  { text: 'Homework', icon: <Pencil size={20} />, path: '/homework', roles: ['SUPER_ADMIN', 'ADMIN', 'TEACHER', 'STUDENT', 'PARENT'] },
+  { text: 'Attendance', icon: <CalendarCheck size={20} />, path: '/attendance', roles: ['SUPER_ADMIN', 'ADMIN', 'TEACHER', 'STUDENT', 'PARENT'] },
   { text: 'Academics', icon: <BookOpen size={20} />, path: '/academics', roles: ['SUPER_ADMIN', 'ADMIN', 'TEACHER'] },
-  { text: 'Examinations', icon: <ClipboardList size={20} />, path: '/examinations', roles: ['SUPER_ADMIN', 'ADMIN', 'TEACHER', 'STUDENT'] },
-  { text: 'Programs', icon: <CalendarCheck size={20} />, path: '/programs', roles: ['SUPER_ADMIN', 'ADMIN', 'TEACHER', 'STUDENT'] },
+  { text: 'Examinations', icon: <ClipboardList size={20} />, path: '/examinations', roles: ['SUPER_ADMIN', 'ADMIN', 'TEACHER', 'STUDENT', 'PARENT'] },
+  { text: 'Programs', icon: <Calendar size={20} />, path: '/programs', roles: ['SUPER_ADMIN', 'ADMIN', 'TEACHER', 'STUDENT', 'PARENT'] },
+  { text: 'Timetable', icon: <Clock size={20} />, path: '/timetable', roles: ['SUPER_ADMIN', 'ADMIN', 'TEACHER', 'STUDENT', 'PARENT'] },
+  { text: 'Complaints', icon: <AlertTriangle size={20} />, path: '/complaints', roles: ['SUPER_ADMIN', 'ADMIN', 'TEACHER', 'STUDENT', 'PARENT'] },
   { text: 'Hostel', icon: <Building2 size={20} />, path: '/hostel', roles: ['SUPER_ADMIN', 'ADMIN', 'STUDENT'] },
   { text: 'Announcemenets', icon: <MessageSquare size={20} />, path: '/communication', roles: ['SUPER_ADMIN', 'ADMIN', 'TEACHER', 'STUDENT'] },
   { text: 'Assessments', icon: <FileText size={20} />, path: '/assessments', roles: ['SUPER_ADMIN', 'ADMIN', 'TEACHER'] },
-  { text: 'Timetable', icon: <Clock size={20} />, path: '/timetable', roles: ['SUPER_ADMIN', 'ADMIN', 'TEACHER', 'STUDENT'] },
   { text: 'Settings', icon: <Settings size={20} />, path: '/settings', roles: ['SUPER_ADMIN', 'ADMIN'] },
 ];
 
@@ -40,7 +45,7 @@ const SidebarContent = ({ open, setOpen, isMobile, navigate, location, onOpenAi 
   const storedUser = localStorage.getItem('user');
   const user = storedUser ? JSON.parse(storedUser) : { role: 'STUDENT', first_name: 'Student', last_name: 'User' };
   const role = user?.role || 'STUDENT';
-  const portalPrefix = (role === 'SUPER_ADMIN' || role === 'ADMIN') ? '/admin-portal' : (role === 'TEACHER' ? '/teacher-portal' : '/student-portal');
+  const portalPrefix = (role === 'SUPER_ADMIN' || role === 'ADMIN') ? '/admin-portal' : (role === 'TEACHER' ? '/teacher-portal' : (role === 'PARENT' ? '/parent-portal' : '/student-portal'));
 
   const navItems = allNavItems
     .filter(item => item.roles.includes(role))

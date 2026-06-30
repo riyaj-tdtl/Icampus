@@ -37,6 +37,8 @@ const Login = () => {
           portalPath = '/admin-portal/dashboard';
         } else if (userData.role === 'TEACHER') {
           portalPath = '/teacher-portal/dashboard';
+        } else if (userData.role === 'PARENT') {
+          portalPath = '/parent-portal/dashboard';
         }
         
         showSuccess('Login Successful', `Welcome back, ${userData.name || 'User'}!`);

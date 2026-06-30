@@ -4,4 +4,5 @@ export const dashboardService = {
   getAdminDashboard: () => axiosInstance.get('dashboard/admin/').then(res => res.data),
   getTeacherDashboard: () => axiosInstance.get('dashboard/teacher/').then(res => res.data),
   getStudentDashboard: () => axiosInstance.get('dashboard/student/').then(res => res.data),
+  getParentDashboard: () => axiosInstance.get('parent/dashboard/').then(res => res.data),
 };

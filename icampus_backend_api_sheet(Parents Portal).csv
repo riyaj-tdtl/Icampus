@@ -1,0 +1,694 @@
+SR NO,API NAME,ENDPOINT URL,METHOD,REQUEST PAYLOAD,RESPONSE,STATUS
+1,Register Parent,https://tdtlworld.com/icampus-backend/api/parents/,POST,"{
+    ""name"": ""Parent2"",
+    ""email"": ""parent2@gmail.com"",
+    ""phone"": ""1111111111"",
+    ""password"": ""123456"",
+    ""address"": ""Pune"",
+    ""occupation"": ""Software Engineer"",
+    ""my_childs"": [2,3]
+    }","{
+    ""id"": 3,
+    ""name"": ""Parent2"",
+    ""email"": ""parent2@gmail.com"",
+    ""phone"": ""1111111111"",
+    ""address"": ""Pune"",
+    ""occupation"": ""Software Engineer"",
+    ""my_childs"": [
+        2,
+        3
+    ],
+    ""is_active"": true,
+    ""created_at"": ""2026-06-25T07:17:50.071173Z""
+}",201
+,,,,,,
+2,Select child dd,https://tdtlworld.com/icampus-backend/api/studensts_dd/,GET,," {
+        ""id"": 1,
+        ""name"": ""Ali khan""
+    },
+    {
+        ""id"": 2,
+        ""name"": ""Ayesha Noor""
+    },
+    {
+        ""id"": 3,
+        ""name"": ""Usman Tariq""
+    },",200
+,,,,,,
+3,Parent : Programs,https://tdtlworld.com/icampus-backend/api/parent/programs/,GET,,"{
+    ""success"": true,
+    ""count"": 3,
+    ""data"": [
+        {
+            ""student_id"": 1,
+            ""student_name"": ""Ali khan"",
+            ""class_id"": 1,
+            ""programs"": [
+                {
+                    ""id"": 5,
+                    ""title"": ""Science Exhibition"",
+                    ""description"": ""Annual science fair"",
+                    ""target_type"": ""ALL"",
+                    ""event_date"": ""2026-06-10""
+                },
+                {
+                    ""id"": 4,
+                    ""title"": ""Science Exhibition"",
+                    ""description"": ""Annual science fair"",
+                    ""target_type"": ""ALL"",
+                    ""event_date"": ""2026-06-10""
+                },
+                {
+                    ""id"": 1,
+                    ""title"": ""Science Exhibition"",
+                    ""description"": ""Annual science fair"",
+                    ""target_type"": ""ALL"",
+                    ""event_date"": ""2026-06-10""
+                },
+                {
+                    ""id"": 7,
+                    ""title"": ""TDTL Anniversary"",
+                    ""description"": ""TDTL Anniversary"",
+                    ""target_type"": ""ALL"",
+                    ""event_date"": ""2026-06-11""
+                },
+                {
+                    ""id"": 6,
+                    ""title"": ""farwell"",
+                    ""description"": ""Annual farewell"",
+                    ""target_type"": ""ALL"",
+                    ""event_date"": ""2026-06-15""
+                },
+                {
+                    ""id"": 2,
+                    ""title"": ""Sports Day"",
+                    ""description"": ""Annual sports event"",
+                    ""target_type"": ""ALL"",
+                    ""event_date"": ""2026-06-15""
+                }
+            ]
+        },
+        {
+            ""student_id"": 11,
+            ""student_name"": ""saurabh"",
+            ""class_id"": 3,
+            ""programs"": [
+                {
+                    ""id"": 4,
+                    ""title"": ""Science Exhibition"",
+                    ""description"": ""Annual science fair"",
+                    ""target_type"": ""ALL"",
+                    ""event_date"": ""2026-06-10""
+                },
+                {
+                    ""id"": 1,
+                    ""title"": ""Science Exhibition"",
+                    ""description"": ""Annual science fair"",
+                    ""target_type"": ""ALL"",
+                    ""event_date"": ""2026-06-10""
+                },
+                {
+                    ""id"": 5,
+                    ""title"": ""Science Exhibition"",
+                    ""description"": ""Annual science fair"",
+                    ""target_type"": ""ALL"",
+                    ""event_date"": ""2026-06-10""
+                },
+                {
+                    ""id"": 7,
+                    ""title"": ""TDTL Anniversary"",
+                    ""description"": ""TDTL Anniversary"",
+                    ""target_type"": ""ALL"",
+                    ""event_date"": ""2026-06-11""
+                },
+                {
+                    ""id"": 6,
+                    ""title"": ""farwell"",
+                    ""description"": ""Annual farewell"",
+                    ""target_type"": ""ALL"",
+                    ""event_date"": ""2026-06-15""
+                },
+                {
+                    ""id"": 2,
+                    ""title"": ""Sports Day"",
+                    ""description"": ""Annual sports event"",
+                    ""target_type"": ""ALL"",
+                    ""event_date"": ""2026-06-15""
+                },
+                {
+                    ""id"": 3,
+                    ""title"": ""Class 10 Seminar"",
+                    ""description"": ""Career counseling"",
+                    ""target_type"": ""CLASS"",
+                    ""event_date"": ""2026-06-20""
+                }
+            ]
+        },
+        {
+            ""student_id"": 15,
+            ""student_name"": ""student1"",
+            ""class_id"": 1,
+            ""programs"": [
+                {
+                    ""id"": 5,
+                    ""title"": ""Science Exhibition"",
+                    ""description"": ""Annual science fair"",
+                    ""target_type"": ""ALL"",
+                    ""event_date"": ""2026-06-10""
+                },
+                {
+                    ""id"": 4,
+                    ""title"": ""Science Exhibition"",
+                    ""description"": ""Annual science fair"",
+                    ""target_type"": ""ALL"",
+                    ""event_date"": ""2026-06-10""
+                },
+                {
+                    ""id"": 1,
+                    ""title"": ""Science Exhibition"",
+                    ""description"": ""Annual science fair"",
+                    ""target_type"": ""ALL"",
+                    ""event_date"": ""2026-06-10""
+                },
+                {
+                    ""id"": 7,
+                    ""title"": ""TDTL Anniversary"",
+                    ""description"": ""TDTL Anniversary"",
+                    ""target_type"": ""ALL"",
+                    ""event_date"": ""2026-06-11""
+                },
+                {
+                    ""id"": 6,
+                    ""title"": ""farwell"",
+                    ""description"": ""Annual farewell"",
+                    ""target_type"": ""ALL"",
+                    ""event_date"": ""2026-06-15""
+                },
+                {
+                    ""id"": 2,
+                    ""title"": ""Sports Day"",
+                    ""description"": ""Annual sports event"",
+                    ""target_type"": ""ALL"",
+                    ""event_date"": ""2026-06-15""
+                }
+            ]
+        }
+    ]
+}",200
+,,,,,,
+,,,,,,
+,,,,,,
+4,Parrents : Show_all_Child_attendence,https://tdtlworld.com/icampus-backend/api/parent/attendance/,GET,,"{
+    ""success"": true,
+    ""count"": 2,
+    ""children"": [
+        {
+            ""student_id"": 2,
+            ""student_name"": ""Ayesha Noor"",
+            ""attendance_percentage"": 96.0,
+            ""present_days"": 24.0,
+            ""absent_days"": 1.0,
+            ""total_days"": 25,
+            ""attendance_history"": [
+                {
+                    ""date"": ""2026-06-25"",
+                    ""status"": ""Present""
+                },
+                {
+                    ""date"": ""2026-06-24"",
+                    ""status"": ""Present""
+                },
+                {
+                    ""date"": ""2026-06-23"",
+                    ""status"": ""Present""
+                },
+                {
+                    ""date"": ""2026-06-22"",
+                    ""status"": ""Present""
+                },
+                {
+                    ""date"": ""2026-06-21"",
+                    ""status"": ""Present""
+                },
+                {
+                    ""date"": ""2026-06-20"",
+                    ""status"": ""Present""
+                },
+                {
+                    ""date"": ""2026-06-19"",
+                    ""status"": ""Present""
+                },
+                {
+                    ""date"": ""2026-06-18"",
+                    ""status"": ""Present""
+                },
+                {
+                    ""date"": ""2026-06-17"",
+                    ""status"": ""Present""
+                },
+                {
+                    ""date"": ""2026-06-16"",
+                    ""status"": ""Present""
+                },
+                {
+                    ""date"": ""2026-06-15"",
+                    ""status"": ""Present""
+                },
+                {
+                    ""date"": ""2026-06-14"",
+                    ""status"": ""Present""
+                },
+                {
+                    ""date"": ""2026-06-13"",
+                    ""status"": ""Present""
+                },
+                {
+                    ""date"": ""2026-06-12"",
+                    ""status"": ""Present""
+                },
+                {
+                    ""date"": ""2026-06-11"",
+                    ""status"": ""Present""
+                },
+                {
+                    ""date"": ""2026-06-10"",
+                    ""status"": ""Present""
+                },
+                {
+                    ""date"": ""2026-06-09"",
+                    ""status"": ""Present""
+                },
+                {
+                    ""date"": ""2026-06-08"",
+                    ""status"": ""Present""
+                },
+                {
+                    ""date"": ""2026-06-07"",
+                    ""status"": ""Present""
+                },
+                {
+                    ""date"": ""2026-06-06"",
+                    ""status"": ""Present""
+                },
+                {
+                    ""date"": ""2026-06-05"",
+                    ""status"": ""Present""
+                },
+                {
+                    ""date"": ""2026-06-04"",
+                    ""status"": ""Present""
+                },
+                {
+                    ""date"": ""2026-06-03"",
+                    ""status"": ""Absent""
+                },
+                {
+                    ""date"": ""2026-06-02"",
+                    ""status"": ""Present""
+                },
+                {
+                    ""date"": ""2026-06-01"",
+                    ""status"": ""Present""
+                }
+            ]
+        },
+        {
+            ""student_id"": 3,
+            ""student_name"": ""Usman Tariq"",
+            ""attendance_percentage"": 92.0,
+            ""present_days"": 23.0,
+            ""absent_days"": 2.0,
+            ""total_days"": 25,
+            ""attendance_history"": [
+                {
+                    ""date"": ""2026-06-25"",
+                    ""status"": ""Present""
+                },
+                {
+                    ""date"": ""2026-06-24"",
+                    ""status"": ""Absent""
+                },
+                {
+                    ""date"": ""2026-06-23"",
+                    ""status"": ""Present""
+                },
+                {
+                    ""date"": ""2026-06-22"",
+                    ""status"": ""Present""
+                },
+                {
+                    ""date"": ""2026-06-21"",
+                    ""status"": ""Present""
+                },
+                {
+                    ""date"": ""2026-06-20"",
+                    ""status"": ""Present""
+                },
+                {
+                    ""date"": ""2026-06-19"",
+                    ""status"": ""Present""
+                },
+                {
+                    ""date"": ""2026-06-18"",
+                    ""status"": ""Present""
+                },
+                {
+                    ""date"": ""2026-06-17"",
+                    ""status"": ""Present""
+                },
+                {
+                    ""date"": ""2026-06-16"",
+                    ""status"": ""Present""
+                },
+                {
+                    ""date"": ""2026-06-15"",
+                    ""status"": ""Present""
+                },
+                {
+                    ""date"": ""2026-06-14"",
+                    ""status"": ""Present""
+                },
+                {
+                    ""date"": ""2026-06-13"",
+                    ""status"": ""Present""
+                },
+                {
+                    ""date"": ""2026-06-12"",
+                    ""status"": ""Present""
+                },
+                {
+                    ""date"": ""2026-06-11"",
+                    ""status"": ""Present""
+                },
+                {
+                    ""date"": ""2026-06-10"",
+                    ""status"": ""Present""
+                },
+                {
+                    ""date"": ""2026-06-09"",
+                    ""status"": ""Present""
+                },
+                {
+                    ""date"": ""2026-06-08"",
+                    ""status"": ""Present""
+                },
+                {
+                    ""date"": ""2026-06-07"",
+                    ""status"": ""Present""
+                },
+                {
+                    ""date"": ""2026-06-06"",
+                    ""status"": ""Present""
+                },
+                {
+                    ""date"": ""2026-06-05"",
+                    ""status"": ""Present""
+                },
+                {
+                    ""date"": ""2026-06-04"",
+                    ""status"": ""Present""
+                },
+                {
+                    ""date"": ""2026-06-03"",
+                    ""status"": ""Present""
+                },
+                {
+                    ""date"": ""2026-06-02"",
+                    ""status"": ""Absent""
+                },
+                {
+                    ""date"": ""2026-06-01"",
+                    ""status"": ""Present""
+                }
+            ]
+        }
+    ]
+}",200
+,,"Additional filters
+?student_name=Usman Tariq
+?month=6
+?year=2026
+?month=6&year=2026
+?student_name=Usman Tariq&month=6&year=2026
+",,,,
+,,,,,,
+5,Parents : show_all_Child_Homework,https://tdtlworld.com/icampus-backend/api/parent/homework/,GET,,"{
+    ""success"": true,
+    ""count"": 2,
+    ""homework_count"": 4,
+    ""data"": [
+        {
+            ""student_id"": 2,
+            ""student_name"": ""Ayesha Noor"",
+            ""class_id"": 2,
+            ""homework"": [
+                {
+                    ""subject"": ""Physics"",
+                    ""title"": ""Motion Laws"",
+                    ""description"": ""Complete worksheet"",
+                    ""due_date"": ""2026-05-31"",
+                    ""assigned_date"": ""2026-05-19""
+                },
+                {
+                    ""subject"": ""history"",
+                    ""title"": ""ancient period"",
+                    ""description"": ""Solve chapter 1"",
+                    ""due_date"": ""2026-05-30"",
+                    ""assigned_date"": ""2026-05-20""
+                },
+                {
+                    ""subject"": ""history"",
+                    ""title"": ""ancient period"",
+                    ""description"": ""Solve chapter 1"",
+                    ""due_date"": ""2026-05-30"",
+                    ""assigned_date"": ""2026-05-20""
+                }
+            ]
+        },
+        {
+            ""student_id"": 3,
+            ""student_name"": ""Usman Tariq"",
+            ""class_id"": 3,
+            ""homework"": [
+                {
+                    ""subject"": ""Chemistry"",
+                    ""title"": ""Periodic Table"",
+                    ""description"": ""Learn elements"",
+                    ""due_date"": ""2026-06-01"",
+                    ""assigned_date"": ""2026-05-19""
+                }
+            ]
+        }
+    ]
+}",200
+,,"Additional filters
+?student_name=Ayesha Noor
+?date=2026-05-30
+?student_name=Ayesha Noor&date=2026-05-30",,,,
+,,,,,,
+6,Parents: Timetable,https://tdtlworld.com/icampus-backend/api/parent/timetable/,GET,,"{
+    ""success"": true,
+    ""parent"": {
+        ""id"": 1,
+        ""name"": ""Parent"",
+        ""email"": ""parent1@gmail.com""
+    },
+    ""data"": [
+        {
+            ""student_id"": 1,
+            ""student_name"": ""Ali khan"",
+            ""student_email"": ""ali@gmail.com"",
+            ""guardian_name"": ""Ahmed Khan"",
+            ""class_id"": 1,
+            ""class_name"": ""8"",
+            ""timetable"": [
+                {
+                    ""day"": ""Monday"",
+                    ""subject"": ""Mathematics"",
+                    ""teacher"": ""John Smith"",
+                    ""start_time"": ""09:00:00"",
+                    ""end_time"": ""10:00:00""
+                },
+                {
+                    ""day"": ""Monday"",
+                    ""subject"": ""Mathematics"",
+                    ""teacher"": ""John Smith"",
+                    ""start_time"": ""09:00:00"",
+                    ""end_time"": ""10:00:00""
+                },
+                {
+                    ""day"": ""Monday"",
+                    ""subject"": ""Mathematics"",
+                    ""teacher"": ""Mangesh Pagare"",
+                    ""start_time"": ""10:00:00"",
+                    ""end_time"": ""11:00:00""
+                }
+            ]
+        },",200
+,,,,,,
+7,Parents: exams,,GET,,"{
+    ""success"": true,
+    ""parent"": {
+        ""id"": 1,
+        ""name"": ""Parent"",
+        ""email"": ""parent1@gmail.com""
+    },
+    ""data"": [
+        {
+            ""student_id"": 1,
+            ""student_name"": ""Ali khan"",
+            ""student_email"": ""ali@gmail.com"",
+            ""guardian_name"": ""Ahmed Khan"",
+            ""class_id"": 1,
+            ""class_name"": ""8"",
+            ""exams"": [
+                {
+                    ""exam_id"": 1,
+                    ""exam_name"": ""Mid Term Math"",
+                    ""subject"": ""Mathematics"",
+                    ""exam_date"": ""2026-06-01"",
+                    ""total_marks"": 100,
+                    ""description"": ""Math Mid Exams""
+                },
+                {
+                    ""exam_id"": 3,
+                    ""exam_name"": ""Mid Term Bio"",
+                    ""subject"": ""Biology"",
+                    ""exam_date"": ""2026-06-01"",
+                    ""total_marks"": 100,
+                    ""description"": ""Bio Mid Exam""
+                },
+                {
+                    ""exam_id"": 6,
+                    ""exam_name"": ""Mid Term Math"",
+                    ""subject"": ""Mathematics"",
+                    ""exam_date"": ""2026-06-01"",
+                    ""total_marks"": 100,
+                    ""description"": ""Math Mid Exam""
+                },
+                {
+                    ""exam_id"": 7,
+                    ""exam_name"": ""Mid Term Math"",
+                    ""subject"": ""Mathematics"",
+                    ""exam_date"": ""2026-06-01"",
+                    ""total_marks"": 100,
+                    ""description"": ""Math Mid Exam""
+                },
+                {
+                    ""exam_id"": 8,
+                    ""exam_name"": ""science mid term"",
+                    ""subject"": ""science"",
+                    ""exam_date"": ""2026-06-05"",
+                    ""total_marks"": 200,
+                    ""description"": ""science Mid Exam""
+                },
+                {
+                    ""exam_id"": 9,
+                    ""exam_name"": ""science mid term"",
+                    ""subject"": ""science"",
+                    ""exam_date"": ""2026-06-05"",
+                    ""total_marks"": 200,
+                    ""description"": ""science Mid Exam""
+                }
+            ]
+        },",200
+8,Parent_dashboard,https://tdtlworld.com/icampus-backend/api/parent/dashboard/,GET,,"{
+    ""success"": true,
+    ""parent"": {
+        ""id"": 4,
+        ""name"": ""rakesh Father"",
+        ""email"": ""rakesh@gmail.com""
+    },
+    ""total_children"": 3,
+    ""children"": [
+        {
+            ""student_id"": 2,
+            ""student_name"": ""Ayesha Noor"",
+            ""class"": ""9"",
+            ""attendance_percentage"": 96.0,
+            ""homework"": {
+                ""total"": 3,
+                ""upcoming"": 0
+            },
+            ""exams"": {
+                ""total"": 0,
+                ""upcoming"": 0
+            },
+            ""complaints"": 1,
+            ""hostel"": {
+                ""status"": ""Not Allocated"",
+                ""room_number"": null
+            }
+        },
+        {
+            ""student_id"": 7,
+            ""student_name"": ""Sara Ahmed"",
+            ""class"": ""9"",
+            ""attendance_percentage"": 100.0,
+            ""homework"": {
+                ""total"": 3,
+                ""upcoming"": 0
+            },
+            ""exams"": {
+                ""total"": 0,
+                ""upcoming"": 0
+            },
+            ""complaints"": 3,
+            ""hostel"": {
+                ""status"": ""Not Allocated"",
+                ""room_number"": null
+            }
+        },
+        {
+            ""student_id"": 14,
+            ""student_name"": ""Atharava Desai"",
+            ""class"": ""9"",
+            ""attendance_percentage"": 100.0,
+            ""homework"": {
+                ""total"": 3,
+                ""upcoming"": 0
+            },
+            ""exams"": {
+                ""total"": 0,
+                ""upcoming"": 0
+            },
+            ""complaints"": 0,
+            ""hostel"": {
+                ""status"": ""Not Allocated"",
+                ""room_number"": null
+            }
+        }
+    ]
+}",
+9,GET COMPLAINTS,https://tdtlworld.com/icampus-backend/api/teachers/complaints/,GET,,"{
+    ""success"": true,
+    ""count"": 2,
+    ""data"": [
+        {
+            ""id"": 4,
+            ""student"": 7,
+            ""student_name"": ""Sara Ahmed"",
+            ""teacher_name"": ""Sarah Johnson"",
+            ""title"": ""Using Mobile Phone"",
+            ""description"": ""not doing homework on time"",
+            ""severity"": ""HIGH"",
+            ""status"": ""PENDING"",
+            ""action_taken"": """",
+            ""created_at"": ""2026-06-26T06:05:56.805752Z"",
+            ""updated_at"": ""2026-06-26T06:05:56.805830Z""
+        },
+        {
+            ""id"": 3,
+            ""student"": 7,
+            ""student_name"": ""Sara Ahmed"",
+            ""teacher_name"": ""John Smith"",
+            ""title"": ""Using Mobile Phone"",
+            ""description"": ""Student was repeatedly using mobile during lecture."",
+            ""severity"": ""HIGH"",
+            ""status"": ""PENDING"",
+            ""action_taken"": """",
+            ""created_at"": ""2026-06-25T10:24:52.882365Z"",
+            ""updated_at"": ""2026-06-25T10:24:52.882365Z""
+        }
+    ]
+}",
