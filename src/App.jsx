@@ -33,26 +33,13 @@ import ParentPrograms from './pages/parent/ParentPrograms';
 import Complaints from './pages/Complaints';
 import ProtectedRoute from './components/ProtectedRoute';
 import RoleGuard from './components/RoleGuard';
-import { useAuth } from './context/AuthContext';
 
 function App() {
-  const { role } = useAuth();
-  
-  // Normalize role
-  const userRole = role === 'SUPER_ADMIN' ? 'ADMIN' : role;
-
   return (
     <Routes>
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
-      <Route path="/" element={
-        userRole ? (
-          userRole === 'STUDENT' ? <Navigate to="/student-portal/dashboard" replace /> :
-          userRole === 'TEACHER' ? <Navigate to="/teacher-portal/dashboard" replace /> :
-          userRole === 'PARENT' ? <Navigate to="/parent-portal/dashboard" replace /> :
-          <Navigate to="/admin-portal/dashboard" replace />
-        ) : <Navigate to="/login" replace />
-      } />
+      <Route path="/" element={<Navigate to="/login" replace />} />
       
       {/* Admin Routes */}
       <Route path="/admin-portal" element={<ProtectedRoute><RoleGuard allowedRoles={['ADMIN', 'SUPER_ADMIN']}><MainLayout /></RoleGuard></ProtectedRoute>}>
@@ -134,7 +121,7 @@ function App() {
         <Route path="complaints" element={<Complaints />} />
       </Route>
       
-      <Route path="*" element={<Navigate to="/" replace />} />
+      <Route path="*" element={<Navigate to="/login" replace />} />
     </Routes>
   );
 }
